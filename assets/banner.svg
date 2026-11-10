@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="346" viewBox="0 0 1000 346" role="img" aria-label="AWS EC2: The Instance That Leaked Its Keys">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3b0764"/><stop offset="1" stop-color="#be185d"/></linearGradient><radialGradient id="glow" cx=".85" cy=".5" r=".6"><stop offset="0" stop-color="#fde68a" stop-opacity=".28"/><stop offset="1" stop-color="#fde68a" stop-opacity="0"/></radialGradient></defs>
+<rect width="1000" height="346" rx="18" fill="url(#bg)"/><rect width="1000" height="346" rx="18" fill="url(#glow)"/>
+<circle cx="60" cy="40" r="3" fill="#fde68a" opacity=".7"><animate attributeName="opacity" values=".2;.9;.2" dur="3s" repeatCount="indefinite"/></circle>
+<text x="48" y="64" font-size="14" letter-spacing="3" fill="#fde68a" font-family="Segoe UI,Helvetica,Arial,sans-serif" font-weight="700">DEVOPS BOOTCAMP · LAB</text>
+<text x="48" y="112" font-size="40" font-weight="800" fill="#ffffff" font-family="Segoe UI,Helvetica,Arial,sans-serif">AWS EC2: The Instance</text>
+<text x="48" y="160" font-size="40" font-weight="800" fill="#ffffff" font-family="Segoe UI,Helvetica,Arial,sans-serif">That Leaked Its Keys</text>
+<text x="48" y="190" font-size="15" fill="#e2e8f0" opacity=".92" font-family="Segoe UI,Helvetica,Arial,sans-serif">A bug in a web app let an attacker make the server fetch an internal</text>
+<text x="48" y="212" font-size="15" fill="#e2e8f0" opacity=".92" font-family="Segoe UI,Helvetica,Arial,sans-serif">URL, and the attacker walked away with the instance&#x27;s cloud</text>
+<text x="48" y="234" font-size="15" fill="#e2e8f0" opacity=".92" font-family="Segoe UI,Helvetica,Arial,sans-serif">credentials. Launch a Clippy server the way it was launched that day,</text>
+<text x="48" y="256" font-size="15" fill="#e2e8f0" opacity=".92" font-family="Segoe UI,Helvetica,Arial,sans-serif">steal its own role credentials from the metadata service, then close…</text>
+<rect x="48" y="288" width="105" height="32" rx="16" fill="#ffffff" fill-opacity=".14" stroke="#fde68a" stroke-opacity=".7"/><text x="62" y="309" font-size="14" fill="#ffffff" font-family="Segoe UI,Helvetica,Arial,sans-serif">75-90 min</text>
+<rect x="165" y="288" width="268" height="32" rx="16" fill="#ffffff" fill-opacity=".14" stroke="#fde68a" stroke-opacity=".7"/><text x="179" y="309" font-size="14" fill="#ffffff" font-family="Segoe UI,Helvetica,Arial,sans-serif">Cost: free tier, a few cents</text>
+<g transform="translate(750,73)">
+<path d="M62 90 V62 a48 48 0 0 1 96 0 V90" fill="none" stroke="#fde68a" stroke-width="14" stroke-linecap="round"><animateTransform attributeName="transform" type="translate" values="0,0;0,0;0,-26;0,-26;0,0" keyTimes="0;.3;.45;.75;.9" dur="4s" repeatCount="indefinite"/></path>
+<rect x="38" y="90" width="144" height="100" rx="14" fill="#fde68a"/>
+<circle cx="110" cy="132" r="13" fill="#3b0764"/><rect x="104" y="136" width="12" height="26" rx="5" fill="#3b0764"/>
+<circle cx="190" cy="40" r="5" fill="#fde68a"><animate attributeName="r" values="3;9;3" dur="2s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;0;1" dur="2s" repeatCount="indefinite"/></circle>
+</g>
+</svg>
