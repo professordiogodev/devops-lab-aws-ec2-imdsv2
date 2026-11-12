@@ -22,11 +22,19 @@
 
 ## 🎬 The situation
 
-<p align="center"><img src="assets/gifs/situation.gif" width="300" alt="Animation: curl 169.254.169.254"></p>
+<p align="center"><img src="assets/gifs/situation.gif" width="300" alt="A request to the metadata address returning credentials, then being refused"></p>
 
-A web application on a Clippy server had a bug: it fetched whatever URL a user gave it. An attacker gave it `http://169.254.169.254/latest/meta-data/iam/security-credentials/`. That address is not on the internet: it is the **instance metadata service**, reachable only from inside the server, and it hands out the temporary credentials of the server's IAM role to anyone who asks. The attacker copied them, left, and used them from their own laptop for hours.
+```text
+RED TEAM REPORT - finding 1 of 1                          severity: critical
+Target    : a Clippy web server, public, with an IAM role attached
+Entry     : the app fetches any URL a user gives it
+Payload   : http://169.254.169.254/latest/meta-data/iam/security-credentials/
+Result    : the server's temporary credentials, copied out in one request
+Impact    : used from a laptop elsewhere for hours before anyone noticed
+Technique : SSRF to the instance metadata service (IMDS)
+```
 
-This is a real attack with a real name (SSRF to IMDS). You are going to **do it yourself**, on a server you own, so you understand it. Then you fix it in the three ways that matter: **IMDSv2**, a hop limit of 1 and a role with almost no permissions.
+That address is not on the internet. It is the **instance metadata service**, reachable only from inside the server, and it hands the server's IAM role credentials to anyone who asks from there. The report is real in shape and the target is yours: in Act 1 you **repeat the attack** on a server you own, so you understand it. In Act 2 you write the defence in three layers: **IMDSv2**, a hop limit of 1, and a role with almost no permissions.
 
 > [!IMPORTANT]
 > **Your mission**
@@ -55,7 +63,7 @@ Clippy installs itself in a minute or two (`http://<ip>/healthz`).
 
 <p align="center"><img src="assets/divider.svg" alt="" width="100%"></p>
 
-## Part 1 - Be the attacker
+## Act 1 - Be the attacker
 
 <p align="center"><img src="assets/gifs/recon.gif" width="300" alt="Animation: aws ec2 describe-instances"></p>
 
@@ -86,7 +94,7 @@ You are now "the server", from anywhere in the world, until the credentials expi
 
 <p align="center"><img src="assets/divider.svg" alt="" width="100%"></p>
 
-## Part 2 - Close the hole (three layers)
+## Act 2 - Close the hole (three layers)
 
 1. **Require IMDSv2** and set the **hop limit to 1**:
 
