@@ -3,7 +3,7 @@
 | | |
 |-|-|
 | **Time** | 75-90 min |
-| **Cost** | free tier, a few cents |
+| **Cost** | a few cents (destroy it when you finish) |
 | **You need** | An AWS administrator user (the IAM lab), the AWS CLI v2 configured for it, Python 3 and a terminal, and ssh |
 
 ## How this lab works

@@ -10,7 +10,7 @@
 <text x="48" y="234" font-size="15" fill="#e2e8f0" opacity=".92" font-family="Segoe UI,Helvetica,Arial,sans-serif">credentials. Launch a Clippy server the way it was launched that day,</text>
 <text x="48" y="256" font-size="15" fill="#e2e8f0" opacity=".92" font-family="Segoe UI,Helvetica,Arial,sans-serif">steal its own role credentials from the metadata service, then close…</text>
 <rect x="48" y="288" width="105" height="32" rx="16" fill="#ffffff" fill-opacity=".14" stroke="#34d399" stroke-opacity=".7"/><text x="62" y="309" font-size="14" fill="#ffffff" font-family="Segoe UI,Helvetica,Arial,sans-serif">75-90 min</text>
-<rect x="165" y="288" width="268" height="32" rx="16" fill="#ffffff" fill-opacity=".14" stroke="#34d399" stroke-opacity=".7"/><text x="179" y="309" font-size="14" fill="#ffffff" font-family="Segoe UI,Helvetica,Arial,sans-serif">Cost: free tier, a few cents</text>
+<rect x="165" y="288" width="423" height="32" rx="16" fill="#ffffff" fill-opacity=".14" stroke="#34d399" stroke-opacity=".7"/><text x="179" y="309" font-size="14" fill="#ffffff" font-family="Segoe UI,Helvetica,Arial,sans-serif">Cost: a few cents (destroy it when you finish)</text>
 <g transform="translate(750,73)">
 <path d="M110 14 L190 44 V104 C190 148 150 176 110 190 C70 176 30 148 30 104 V44 Z" fill="none" stroke="#34d399" stroke-width="8" stroke-linejoin="round"/>
 <path d="M72 104 L100 132 L150 76" fill="none" stroke="#34d399" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="140" stroke-dashoffset="140"><animate attributeName="stroke-dashoffset" values="140;0;0;140" keyTimes="0;.35;.85;1" dur="4s" repeatCount="indefinite"/></path>
