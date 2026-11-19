@@ -20,7 +20,7 @@ That address is not on the internet. It is the **instance metadata service**, re
 > - Close the hole and prove from inside the server that the same request now fails
 > - Tear everything down and prove it
 
-**Time:** 75-90 min | **Cost:** free tier, a few cents | **You need:** an AWS administrator user, the AWS CLI v2 configured for it, Python 3, ssh, curl and a terminal. The lab uses your default VPC.
+**Time:** 75-90 min | **Cost:** a few cents | **You need:** an AWS administrator user, the AWS CLI v2 configured for it, Python 3, ssh, curl and a terminal. The lab uses your default VPC.
 
 ---
 
@@ -34,6 +34,8 @@ That address is not on the internet. It is the **instance metadata service**, re
 ```
 
 Clippy installs itself in a minute or two (`http://<ip>/healthz`).
+
+> **Note** Everyone on the course shares one AWS account, so the script adds **your handle** (your IAM user name, shortened) to every name and tag: the key pair, the role and the security group are all called `...-<handle>`. It prints your handle first. Never touch resources that carry someone else's.
 
 > **Think** `setup.sh` opened SSH to *your public IP only* (`/32`). What would have been wrong with `0.0.0.0/0`? What breaks the day your address changes, and how do you fix it without opening the world?
 
@@ -51,7 +53,7 @@ From **inside** the server, ask the metadata service who you are. First the old 
 
 ```bash
 curl -s http://169.254.169.254/latest/meta-data/iam/security-credentials/
-curl -s http://169.254.169.254/latest/meta-data/iam/security-credentials/clippy-imds-role
+curl -s http://169.254.169.254/latest/meta-data/iam/security-credentials/<role-name-from-the-line-above>
 ```
 
 You get `AccessKeyId`, `SecretAccessKey`, `Token` and an `Expiration`. Copy them **out of the server** and use them from your own laptop, in a shell where you export the three variables `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` and `AWS_SESSION_TOKEN`:
@@ -78,7 +80,7 @@ aws ec2 modify-instance-metadata-options --instance-id <id> \
 
 IMDSv2 needs two requests: a `PUT` that returns a short-lived token, then the `GET` with that token in a header. A simple SSRF bug that can only make a `GET` cannot do the first step. The hop limit stops a container or a proxy one network hop away from reaching the service at all.
 
-2. **Take away what the role does not need.** Clippy needs no S3 access at all in this lab: detach `AmazonS3ReadOnlyAccess` from the role (console or CLI). If it needed one bucket you would write an inline policy for that bucket only.
+2. **Take away what the role does not need.** Clippy needs no S3 access at all in this lab: detach `AmazonS3ReadOnlyAccess` from your role (`clippy-imds-role-<handle>`; console or CLI). If it needed one bucket you would write an inline policy for that bucket only.
 
 3. Prove it from inside the server:
 

@@ -25,11 +25,14 @@ def sh(c):
     return r.returncode, r.stdout
 
 
+import subprocess as _sp
+STUDENT = _sp.run(["bash", ".lab/handle.sh"], capture_output=True, text=True).stdout.strip()
+print("Your handle (from your IAM user name): " + STUDENT)
 print("== The server ==")
 insts = []
-for r in (aws("ec2", "describe-instances", "--filters", "Name=tag:lab,Values=aws-ec2-imdsv2", "Name=instance-state-name,Values=running") or {}).get("Reservations", []):
+for r in (aws("ec2", "describe-instances", "--filters", "Name=tag:lab,Values=aws-ec2-imdsv2", "Name=tag:student,Values=" + STUDENT, "Name=instance-state-name,Values=running") or {}).get("Reservations", []):
     insts += r["Instances"]
-check("one running server tagged lab=aws-ec2-imdsv2", len(insts) == 1, "./setup.sh")
+check("one running server tagged lab=aws-ec2-imdsv2 and student=" + STUDENT, len(insts) == 1, "./setup.sh")
 if not insts:
     print("\nNothing else can be checked.\n%d check(s) failed, %d passed" % (failed, passed)); sys.exit(1)
 i = insts[0]
@@ -38,7 +41,7 @@ check("IMDSv2 is REQUIRED (HttpTokens = required)", md["HttpTokens"] == "require
 check("the hop limit is 1 (a container or a proxy one hop away cannot reach the metadata service)", md["HttpPutResponseHopLimit"] == 1)
 check("the metadata service is still enabled (the role must keep working)", md["HttpEndpoint"] == "enabled")
 check("a role is attached through an instance profile", "IamInstanceProfile" in i)
-role = "clippy-imds-role"
+role = "clippy-imds-role-" + STUDENT
 att = (aws("iam", "list-attached-role-policies", "--role-name", role) or {}).get("AttachedPolicies", [])
 check("the role has no AWS managed policy (the broad AmazonS3ReadOnlyAccess is gone)", not att, ", ".join(p["PolicyName"] for p in att))
 docs = [(aws("iam", "get-role-policy", "--role-name", role, "--policy-name", n) or {}).get("PolicyDocument", {"Statement": []}) for n in (aws("iam", "list-role-policies", "--role-name", role) or {}).get("PolicyNames", [])]
